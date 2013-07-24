@@ -1,6 +1,6 @@
-<h1>Editing micropost</h1>
+<h1>Editing <%=@user.name%>'s micropost</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @micropost %> |
-<%= link_to 'Back', microposts_path %>
+<%= link_to 'Show', user_micropost_path(@user, @micropost) %> |
+<%= link_to 'Back', user_micropost_path(@user, @micropost) %>
