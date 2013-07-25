@@ -1,11 +1,19 @@
 class MicropostsController < ApplicationController
+
+  load_and_authorize_resource :user
+  load_and_authorize_resource through: :user
+
   # GET /microposts
   # GET /microposts.json
+  before_filter :get_user
+  before_filter :get_micropost, only: [:show, :edit, :update, :destroy] 
+
   def index
 
-    @user = User.find(params[:user_id])
+    #@user = User.find(params[:user_id])
+    #@microposts = Micropost.all
     @microposts = @user.microposts
-    #  @microposts = Micropost.all
+
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,8 +25,8 @@ class MicropostsController < ApplicationController
   # GET /microposts/1.json
   def show
 
-    @user = User.find(params[:user_id])
-    @micropost = Micropost.find(params[:id])
+    #@user = User.find(params[:user_id])
+    #@micropost = Micropost.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -30,7 +38,7 @@ class MicropostsController < ApplicationController
   # GET /microposts/new.json
   def new
 
-    @user = User.find(params[:user_id])
+    #@user = User.find(params[:user_id])
     @micropost = Micropost.new(:user_id => @user.id)
 
     respond_to do |format|
@@ -41,15 +49,15 @@ class MicropostsController < ApplicationController
 
   # GET /microposts/1/edit
   def edit
-    @user = User.find(params[:user_id])
-    @micropost = Micropost.find(params[:id])
+    #@user = User.find(params[:user_id])
+    #@micropost = Micropost.find(params[:id])
   end
 
   # POST /microposts
   # POST /microposts.json
   def create
     
-    @user = User.find(params[:user_id])
+    #@user = User.find(params[:user_id])
     @micropost = Micropost.new(params[:micropost])
 
     respond_to do |format| 
@@ -67,8 +75,8 @@ class MicropostsController < ApplicationController
   # PUT /microposts/1.json
   def update
     
-    @micropost = Micropost.find(params[:id])
-    @user = User.find(params[:user_id])
+    #@micropost = Micropost.find(params[:id])
+    #@user = User.find(params[:user_id])
 
     respond_to do |format|
       if @micropost.update_attributes(params[:micropost])
@@ -84,8 +92,8 @@ class MicropostsController < ApplicationController
   # DELETE /microposts/1
   # DELETE /microposts/1.json
   def destroy
-    @user = User.find(params[:user_id])
-    @micropost = Micropost.find(params[:id])
+    #@user = User.find(params[:user_id])
+    #@micropost = Micropost.find(params[:id])
     @micropost.destroy
 
     respond_to do |format|
@@ -93,4 +101,13 @@ class MicropostsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def get_user
+    @user = User.find(params[:user_id])
+  end
+
+    def get_micropost
+    @micropost = Micropost.find(params[:id])
+  end
+
 end

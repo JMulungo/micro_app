@@ -27,6 +27,8 @@ gem 'jquery-rails'
 gem 'simple_form'
 gem 'twitter-bootstrap-rails'
 gem "less-rails"
+gem 'authlogic'
+gem 'cancan'
 
 group :production do
 	gem 'pg', '0.12.2'

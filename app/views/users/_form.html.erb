@@ -1,9 +1,62 @@
-<%= simple_form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.input :name %>
-  <%= f.input :email %>
-  <div class="form-actions">
-    <%= f.button :submit, :class => 'btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                users_path, :class => 'btn' %>
-  </div>
-<% end %>
+ 
+ <%= form_for [@user], :html => { :class => 'form-horizontal' } do |f| %>
+
+      <% if @user.errors.any? %>
+
+        <div id="error_explanation">
+
+          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+
+          <ul>
+
+          <% @user.errors.full_messages.each do |msg| %>
+
+            <li><%= msg %></li>
+
+          <% end %>
+
+          </ul>
+
+        </div>
+
+      <% end %>
+
+
+
+
+      <div class="control-group">
+         <%= f.label :username, :class => "control-label", :for => "inputEmail" %><br />
+        <div class="controls">  
+        <%= f.text_field :name, :class => "input-xlarge" ,:id=> "inputEmail", :placeholder => "username"  %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :email, :class => "control-label", :for => "inputEmail" %><br />
+        <div class="controls"> 
+        <%= f.text_field :email, :class => "input-xlarge" , :id=> "inputEmail", :placeholder => "email" %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :password, :class => "control-label", :for => "inputPassword" %><br />
+        <div class="controls"> 
+        <%= f.text_field :password, :class => "input-xlarge" , :id=> "inputPassword", :placeholder => "password" %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :password_confirmation, :class => "control-label", :for => "inputPassword" %><br />
+        <div class="controls"> 
+        <%= f.text_field :password_confirmation, :class => "input-xlarge" , :id=> "inputPassword", :placeholder => "password confirmation" %>
+        </div>
+      </div>
+
+      <div class="actions">
+
+        <%= f.submit "Sign up", :class => 'btn btn-primary' %>
+       <!-- <%= link_to '<button class = "btn btn-primary">Back</button>'.html_safe, users_path%> -->
+      </div>
+
+    <% end %>
