@@ -19,7 +19,7 @@ class UserSessionsController < ApplicationController
 
           # leve me aos micropost do user logado
           
-          redirect_to user_microposts_path(1)
+          redirect_to user_microposts_path(current_user.id)
 
         else
 

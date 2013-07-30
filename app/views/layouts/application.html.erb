@@ -15,25 +15,31 @@
 <body>
 <div class="navbar navbar-inverse">
   <div class="navbar-inner">
-    <a class="brand" href="#"><div id="logo"><%= image_tag("twitter.png", :alt => "Micro-Twitter", :width => 25) %>Micro-Twitter</div></a>
+    <a class="brand" id="bran" href="#"><div id="logo"><%= image_tag("twitter.png", :alt => "Micro-Twitter", :width => 25) %>
+      <% if !current_user.present? %>
+      <%=link_to "Micro-Twitter", root_path, class: 'brand'%>
+      <% else  %>
+       <%=link_to "Micro-Twitter", user_microposts_path, class: 'brand'%>
+      <% end %>
+    </div></a>
 
 
 
     <ul class="nav">
 
       <li class="<%= 'active' if current_page?(user_sessions_new_path) %>">
-        <% if @user.present? %>
+        <% if !current_user.present? %>
         <%= link_to 'Sign in', user_sessions_new_path %> 
         <% else  %>
-        <%= link_to 'Profile', user_sessions_new_path %>
+        <%= link_to 'Profile'%>
         <% end %>
       </li>
 
       <li class="<%= 'active' if (current_page?(new_user_path) or current_page?(root_path)) %>">
-      <% if @user.present? %>
+      <% if !current_user.present? %>
       <%= link_to 'Sign up', new_user_path %>
       <% else %> 
-      <%= link_to 'Sign out', new_user_path %>
+      <%= link_to 'Sign out', logout_path %>
       <% end %>
     </li>
     </ul>
@@ -41,8 +47,6 @@
 
   </div>
 </div>
-
-<% current_user.present? %>
 
 <center>
 <div class="container">
